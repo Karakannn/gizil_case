@@ -1,30 +1,6 @@
 Three.js ve React-Three-Fiber ile 3D Shape Yönetimi
 Bu proje, Three.js ve React-Three-Fiber kullanarak 3D şekillerin oluşturulması, yönetilmesi ve görüntülenmesi işlevselliğini sunar. Proje, kullanıcıların 3D şekilleri oluşturmasına, düzenlemesine, silmesine ve görüntülemesine olanak tanır.
 
-Proje Kurulumu
-Gereksinimler:
-Node.js (v12 ve üzeri)
-NPM veya Yarn paket yöneticisi
-Depoyu Klonlayın:
-sh
-Kodu kopyala
-git clone https://github.com/kullanici/proje.git
-cd proje
-Bağımlılıkları Yükleyin:
-sh
-Kodu kopyala
-npm install
-veya
-
-sh
-Kodu kopyala
-yarn install
-Proje'yi Başlatın:
-sh
-Kodu kopyala
-npm start
-veya
-
 sh
 Kodu kopyala
 yarn start
