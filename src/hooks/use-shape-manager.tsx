@@ -8,7 +8,7 @@ export interface Shape {
   scale: [number, number, number];
 }
 
-export const useShapeManager = () => {
+export const useShapeManager = (onUpdate?: () => void) => {
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [selectedShape, setSelectedShape] = useState<Shape | null>(null);
 
@@ -28,18 +28,21 @@ export const useShapeManager = () => {
     const updatedShapes = [...shapes, newShape];
     setShapes(updatedShapes);
     localStorage.setItem("shapes", JSON.stringify(updatedShapes));
+    onUpdate && onUpdate();
   };
 
   const deleteShape = (shape: Shape) => {
     const updatedShapes = shapes.filter((s) => s.id !== shape.id);
     setShapes(updatedShapes);
     localStorage.setItem("shapes", JSON.stringify(updatedShapes));
+    onUpdate && onUpdate();
   };
 
   const updateShape = (updatedShape: Shape) => {
     const updatedShapes = shapes.map((shape) => (shape.id === updatedShape.id ? updatedShape : shape));
     setShapes(updatedShapes);
     localStorage.setItem("shapes", JSON.stringify(updatedShapes));
+    onUpdate && onUpdate();
   };
 
   const handleShapeSelect = (shape: Shape | null) => {

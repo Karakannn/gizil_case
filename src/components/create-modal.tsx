@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Backdrop, Box, Fade, Typography, TextField, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Button } from "@mui/material";
-import { useShapeContext } from "@/context/shape-context";
 
-const CreateModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
-  const { createShape } = useShapeContext();
+interface CreateModalProps {
+  open: boolean;
+  onClose: () => void;
+  createShape: (name: string, shapeType: string) => void;
+}
+
+const CreateModal: React.FC<CreateModalProps> = ({ open, onClose, createShape }) => {
   const [name, setName] = useState("");
   const [shapeType, setShapeType] = useState<string>("");
 

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, Typography, TextField } from "@mui/material";
 import * as THREE from "three";
-import { useShapeContext } from "@/context/shape-context";
 import { useThreeJSContext } from "@/context/three-js-context";
-import { Shape } from "@/hooks/use-shape-manager";
+import { Shape, useShapeManager } from "@/hooks/use-shape-manager";
 import { useRenderModeContext } from "@/context/render-mode-context";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import CreateModal from "@/components/create-modal";
 import DeleteModal from "@/components/delete-modal";
 
-export const ThreeJSContainer: React.FC = () => {
-  const { shapes, selectedShape, handleShapeSelect, handleScaleChange, handlePositionChange } = useShapeContext();
+interface ThreeContainerProps {
+  shapeManager: ReturnType<typeof useShapeManager>;
+}
+
+export default function ThreeJSContainer({ shapeManager }: ThreeContainerProps) {
+  const { shapes, selectedShape, handleShapeSelect, handleScaleChange, handlePositionChange, createShape, deleteShape } = shapeManager;
   const { renderMode, setRenderMode, singleRender, setSingleRender } = useRenderModeContext();
   const { sceneRef, cameraRef, rendererRef, containerRef, meshRefs, controlsRef, raycaster, mouse } = useThreeJSContext();
 
@@ -285,10 +288,8 @@ export const ThreeJSContainer: React.FC = () => {
         </div>
       )}
 
-      <CreateModal open={open} onClose={handleClose} />
-      <DeleteModal open={deleteModalOpen} onClose={handleDeleteModalClose} shapeToDelete={shapeToDelete} />
+      <CreateModal open={open} onClose={handleClose} createShape={createShape} />
+      <DeleteModal open={deleteModalOpen} onClose={handleDeleteModalClose} shapeToDelete={shapeToDelete} deleteShape={deleteShape} />
     </>
   );
-};
-
-export default ThreeJSContainer;
+}

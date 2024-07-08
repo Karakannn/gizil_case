@@ -1,11 +1,15 @@
 import React from "react";
 import { Modal, Backdrop, Box, Fade, Typography, Button } from "@mui/material";
-import { useShapeContext } from "@/context/shape-context";
 import { Shape } from "@/hooks/use-shape-manager";
 
-const DeleteModal: React.FC<{ open: boolean; onClose: () => void; shapeToDelete: Shape | null }> = ({ open, onClose, shapeToDelete }) => {
-  const { deleteShape } = useShapeContext();
+interface DeleteModalProps {
+  open: boolean;
+  onClose: () => void;
+  shapeToDelete: Shape | null;
+  deleteShape: (shape: Shape) => void;
+}
 
+const DeleteModal: React.FC<DeleteModalProps> = ({ open, onClose, shapeToDelete, deleteShape }) => {
   const handleDelete = () => {
     if (shapeToDelete) {
       deleteShape(shapeToDelete);

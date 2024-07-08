@@ -7,8 +7,12 @@ import { useRenderModeContext } from "@/context/render-mode-context";
 import CreateModal from "@/components/create-modal";
 import DeleteModal from "@/components/delete-modal";
 
-export default function ThreeFiberContainer() {
-  const { shapes, selectedShape, handleShapeSelect, handleScaleChange, handlePositionChange } = useShapeManager();
+interface ThreeFiberContainerProps {
+  shapeManager: ReturnType<typeof useShapeManager>;
+}
+
+export default function ThreeFiberContainer({ shapeManager }: ThreeFiberContainerProps) {
+  const { shapes, selectedShape, handleShapeSelect, deleteShape, handleScaleChange, handlePositionChange, createShape } = shapeManager;
 
   const { renderMode, setRenderMode, singleRender, setSingleRender } = useRenderModeContext();
 
@@ -17,9 +21,7 @@ export default function ThreeFiberContainer() {
   const [shapeToDelete, setShapeToDelete] = useState<Shape | null>(null);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const handleDeleteModalOpen = (shape: Shape) => {
     setShapeToDelete(shape);
@@ -212,8 +214,8 @@ export default function ThreeFiberContainer() {
         </div>
       )}
 
-      <CreateModal open={open} onClose={handleClose} />
-      <DeleteModal open={deleteModalOpen} onClose={handleDeleteModalClose} shapeToDelete={shapeToDelete} />
+      <CreateModal open={open} onClose={handleClose} createShape={createShape} />
+      <DeleteModal open={deleteModalOpen} onClose={handleDeleteModalClose} shapeToDelete={shapeToDelete} deleteShape={deleteShape} />
     </div>
   );
 }
